@@ -1,0 +1,1 @@
+Functions for reading Microwave Telemetry PSAT data into R,  analyzing it via state space methods,  and producing useful output. Emphasis is placed on data management i.e. structures used in state space analysis and efficient plotting
