@@ -55,7 +55,7 @@ kern2UD <- function(x){
 		asc = as.asc(normalise(x[[3]]), xll = min(x[[1]]), yll = min(x[[2]]), cellsize = diff(x[[1]])[2], type = c("numeric"))
 		cs <- attr(asc, "cellsize")
         v <- .C("calcvolume", as.double(t(asc)), as.integer(ncol(asc)), 
-            as.integer(nrow(asc)), as.double(cs), PACKAGE = "adehabitat")[[1]]
+            as.integer(nrow(asc)), as.double(cs), PACKAGE = "adehabitatHR")[[1]]
         index <- 1:length(v)
         vord <- v[order(v, decreasing = TRUE)]
         indord <- index[order(v, decreasing = TRUE)]
@@ -74,7 +74,7 @@ kern2UDarch <- function(x){
 		asc = as.asc(normalize(x[[3]]), xll = min(x[[1]]), yll = min(x[[2]]), cellsize = diff(x[[1]])[2], type = c("numeric"))
 		cs <- attr(asc, "cellsize")
         v <- .C("calcvolume", as.double(t(asc)), as.integer(ncol(asc)), 
-            as.integer(nrow(asc)), as.double(cs), PACKAGE = "adehabitat")[[1]]
+            as.integer(nrow(asc)), as.double(cs), PACKAGE = "adehabitatHR")[[1]]
         index <- 1:length(v)
         vord <- v[order(v, decreasing = TRUE)]
         indord <- index[order(v, decreasing = TRUE)]

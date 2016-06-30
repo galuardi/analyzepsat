@@ -66,10 +66,10 @@ MWTextract = function (tagID, tyear, xlsfile, taglocfile, delta=F, minmax=F, odb
     return(x0)
 }
 
-.getTaggingDay = function (TagLocfile, tagID, tyear) 
+.getTaggingDay = function (taglocfile, tagID, tyear) 
 {
     require(date)
-    tab = read.table(TagLocfile, header = F)
+    tab = read.table(taglocfile, header = F)
     i = tab[(tab[, 1] == tagID) & (tab[, 2] == tyear), ]
     i = as.numeric(i)
     day0 = mdy.date(i[3], i[4], i[2])
@@ -91,16 +91,26 @@ MWTextract = function (tagID, tyear, xlsfile, taglocfile, delta=F, minmax=F, odb
 		adata = na.omit(adata)
 	}
 	else{
-		res = read.xls(xlsfile, "Argos Data",skip=1, head=T)
+# 		res = read.xls(xlsfile, "Argos Data",skip=1, head=T)
+# 		adata = res[, 1:4]
+# 		names(adata) = c("Date-Time", "LC", "Lat", "Lon")
+# 		res = res[!is.na(res[, 1]), ]
+# 		res = res[!is.na(res[, 2]), ]
+# 		d1 = dim(res)[1]
+# 		d2 = dim(res)[2]
+# 		adates = as.character(res[, 1])
+# 		adates = strptime(adates, format = '%m/%d/%Y %H:%M')
+# 		adata[,1] = as.POSIXct(adates)
+	res = readxl::read_excel(xlsfile, sheet = 'Argos Data', skip = 1)
 		adata = res[, 1:4]
 		names(adata) = c("Date-Time", "LC", "Lat", "Lon")
 		res = res[!is.na(res[, 1]), ]
 		res = res[!is.na(res[, 2]), ]
 		d1 = dim(res)[1]
 		d2 = dim(res)[2]
-		adates = as.character(res[, 1])
-		adates = strptime(adates, format = '%m/%d/%Y %H:%M')
-		adata[,1] = as.POSIXct(adates)
+# 		adates = as.character(res[, 1])
+# 		adates = strptime(adates, format = '%m/%d/%Y %H:%M')
+# 		adata[,1] = as.POSIXct(adates)
 	}
     adata
 }
@@ -145,18 +155,22 @@ MWTextract = function (tagID, tyear, xlsfile, taglocfile, delta=F, minmax=F, odb
 		MWTxy = MWTxy[!is.na(MWTxy[, 1]), 1:3]
 	}
 	else{
-    MWTxy = read.xls(xlsfile, sheet = "Lat&Long", skip=1, head=T)
-    MWTxy = MWTxy[!is.na(MWTxy[, 1]), 1:3]
-    MWTxy[,1] = as.character(MWTxy[,1])
-    MWTxy[,1] = as.POSIXct(strptime(MWTxy[,1], format="%b %d,%Y"))
+#     MWTxy = read.xls(xlsfile, sheet = "Lat&Long", skip=1, head=T)
+#     MWTxy = MWTxy[!is.na(MWTxy[, 1]), 1:3]
+#     MWTxy[,1] = as.character(MWTxy[,1])
+#     MWTxy[,1] = as.POSIXct(strptime(MWTxy[,1], format="%b %d,%Y"))
+		MWTxy = read_excel(xlsfile, sheet = "Lat&Long", skip=1)
+		MWTxy = MWTxy[!is.na(MWTxy[, 1]), 1:3]
+# 		MWTxy[,1] = as.character(MWTxy[,1])
+# 		MWTxy[,1] = as.POSIXct(strptime(MWTxy[,1], format="%b %d,%Y"))
 	}
     names(MWTxy) = c("Date", "Lat", "Long")
     fulldates = seq(day0, dayT)
     len = length(fulldates)
     MWTdata = as.data.frame(array(NA, c(len, 5)))
-    Years = as.numeric(format.Date(MWTxy$Date, '%Y'))
-    Months = as.numeric(format.Date(MWTxy$Date, '%m'))
-    Days = as.numeric(format.Date(MWTxy$Date, '%d'))
+    Years = year(MWTxy[,1]) #as.numeric(format.Date(MWTxy$Date, '%Y'))
+    Months = month(MWTxy[,1]) #as.numeric(format.Date(MWTxy$Date, '%m'))
+    Days = day(MWTxy[,1]) #as.numeric(format.Date(MWTxy$Date, '%d'))
     MWTdates = mdy.date(Months, Days, Years)
     didx = match(MWTdates, fulldates)
     didx = didx[!is.na(didx)]
@@ -188,15 +202,22 @@ MWTextract = function (tagID, tyear, xlsfile, taglocfile, delta=F, minmax=F, odb
 		
 	}
 	else{
-    res = read.xls(xlsfile, sheet = "Sunrise and Sunset Times", skip=1, head=T)
+    # res = read.xls(xlsfile, sheet = "Sunrise and Sunset Times", skip=1, head=T)
+		res = read_excel(xlsfile, sheet = "Sunrise and Sunset Times", skip=1)
     res = res[!is.na(res[, 1]), c(1, 2, 4)]
     len = length(res[, 1])
-    srssdates = as.POSIXct(strptime(res[,1], "%b %d, %Y"))
+    # srssdates = as.POSIXct(strptime(res[,1], "%b %d, %Y"))
+    srssdates = res[,1]
 
-    SR = strptime(paste(res[,1], res[,2], sep=" "), "%b %d, %Y %H:%M:%S")
-    SR = SR$hour * 60 + SR$min
-    SS = strptime(paste(res[,1], res[,3], sep=" "), "%b %d, %Y %H:%M:%S")
-    SS = SS$hour * 60 + SS$min
+#     SR = strptime(paste(res[,1], res[,2], sep=" "), "%b %d, %Y %H:%M:%S")
+#     SR = SR$hour * 60 + SR$min
+#     SS = strptime(paste(res[,1], res[,3], sep=" "), "%b %d, %Y %H:%M:%S")
+#     SS = SS$hour * 60 + SS$min
+    SR = hour(res[,2])*60+minute(res[,2])
+    SS = hour(res[,3])*60+minute(res[,3])
+    # SR = SR$hour * 60 + SR$min
+#     SS = strptime(paste(res[,1], res[,3], sep=" "), "%b %d, %Y %H:%M:%S")
+#     SS = SS$hour * 60 + SS$min
 
     tidx = srssdates>=day0b&srssdates<=dayTb
 
@@ -220,9 +241,11 @@ MWTextract = function (tagID, tyear, xlsfile, taglocfile, delta=F, minmax=F, odb
 		tdates = tres[,1]
 	}
 	else{
-		tres = read.xls(xlsfile, "Temp Data", head=T, skip =1)
+		# tres = read.xls(xlsfile, "Temp Data", head=T, skip =1)
+		tres = read_excel(xlsfile, "Temp Data", skip =1)
 		tres = tres[2:length(tres[, 1]), ]
-		tdates = as.POSIXct(strptime(as.character(tres[, 1]), "%m/%d/%y %H:%M"))
+		tdates = tres[,1]
+		# tdates = as.POSIXct(strptime(as.character(tres[, 1]), "%m/%d/%y %H:%M"))
 	}
     tidx = tdates <= (dayTb) & tdates >= day0b
     tres = tres[tidx, ]
@@ -253,10 +276,12 @@ MWTextract = function (tagID, tyear, xlsfile, taglocfile, delta=F, minmax=F, odb
         pdates = pres[, 1]
     }
     else {
-        pres = read.xls(xlsfile, "Press Data", head = T, skip = 1)
+        # pres = read.xls(xlsfile, "Press Data", head = T, skip = 1)
+    	pres = read_excel(xlsfile, "Press Data", skip = 1)
         pres = pres[2:length(pres[, 1]), ]
-        pdates = as.POSIXct(strptime(as.character(pres[, 1]), 
-            "%m/%d/%y %H:%M"))
+        pdates = pres[,1]
+        # pdates = as.POSIXct(strptime(as.character(pres[, 1]), 
+            # "%m/%d/%y %H:%M"))
     }
     pidx = pdates <= (dayTb) & pdates >= day0b
     pres = pres[pidx, ]
@@ -291,11 +316,14 @@ MWTextract = function (tagID, tyear, xlsfile, taglocfile, delta=F, minmax=F, odb
 		mmpdates = pres[,1]
 	}
 	else{
-	  pres = read.xls(xlsfile, "Press Data (MinMax)", head=T, skip =1)	
-	  mmpdates = as.POSIXct(strptime(as.character(pres[, 1]), "%m/%d/%y"), tz = "GMT")
+	  # pres = read.xls(xlsfile, "Press Data (MinMax)", head=T, skip =1)
+	  pres = read_excel(xlsfile, "Press Data (MinMax)", skip =1)
+	  # mmpdates = as.POSIXct(strptime(as.character(pres[, 1]), "%m/%d/%y"), tz = "GMT")
+	  pres= pres[!is.na(pres[,1]),]
+	  mmpdates = pres[,1]
   }
-  mmpdates = as.POSIXct(trunc(mmpdates,'day'), tz = 'GMT')
-  alldates = ISOdate(MWTxy[,1], MWTxy[,2], MWTxy[,3])
+  # mmpdates = as.POSIXct(trunc(mmpdates,'day'), tz = 'GMT')
+  alldates = ISOdate(MWTxy[,1], MWTxy[,2], MWTxy[,3], tz = 'UTC')
   alldates = as.POSIXct(trunc(alldates,'day'))
   pidx = mmpdates <= (dayTb) #& mmpdates >= day0b
   pres = pres[pidx, ]
@@ -320,11 +348,13 @@ MWTextract = function (tagID, tyear, xlsfile, taglocfile, delta=F, minmax=F, odb
 		mmtdates = tres[,1]
 	}
 	else{
-	  tres = read.xls(xlsfile, "Temp Data (MinMax)", head=T, skip =1)	
-	  mmtdates = as.POSIXct(strptime(as.character(tres[, 1]), "%m/%d/%y"), tz = "GMT")
+# 	  tres = read.xls(xlsfile, "Temp Data (MinMax)", head=T, skip =1)	
+# 	  mmtdates = as.POSIXct(strptime(as.character(tres[, 1]), "%m/%d/%y"), tz = "GMT")
+		tres = read_excel(xlsfile, "Temp Data (MinMax)", skip =1)	
+		mmtdates = tres[,1]
   }
-  mmtdates = as.POSIXct(trunc(mmtdates,'day'),tz='GMT')
-  alldates = ISOdate(MWTxy[,1], MWTxy[,2], MWTxy[,3])
+  # mmtdates = as.POSIXct(trunc(mmtdates,'day'),tz='GMT')
+  alldates = ISOdate(MWTxy[,1], MWTxy[,2], MWTxy[,3], tz = 'UTC')
     alldates = as.POSIXct(trunc(alldates,'day'))
   pidx = mmtdates <= (dayTb) #& mmtdates >= day0b
   tres = tres[pidx, ]
