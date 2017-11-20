@@ -345,3 +345,22 @@ prepf.arch <- function (tag, xmin = -100, xmax = 0, ymin = 10, ymax = 55, keepal
 	dat
 }
 
+.fill.vals <- function (vec, span = 0.25) 
+{
+	len = length(vec)
+	vlen = 1:len
+	# fidx = (vec < 5) 
+	fidx1 = is.infinite(vec) 
+	fidx2 = is.na(vec)
+	fidx3 = is.nan(vec)
+	fidx = as.logical(fidx1+fidx2+fidx3)
+	vec[fidx] = NA
+	if (any(fidx == T)) {
+		ltmp = loess(vec ~ vlen, span = span)
+		#ltmp = locfit(vec ~ vlen, alpha = span)
+		vec[fidx] = predict(ltmp, newdata = vlen[fidx])
+	}
+	vec
+}
+
+
