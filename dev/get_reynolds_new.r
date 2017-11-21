@@ -36,10 +36,8 @@ get.reynolds <- function(track, folder = tempdir(), removeland = TRUE)
   
   unlink(paste(sstfolder, "/*", sep=""), F)
   if (is.data.frame(track)) track <- list(track)
-  minDate <- min(unlist(lapply(track, function(x) mdy.date(x[1, 
-                                                             2], x[1, 1], x[1, 3]))))
-  maxDate <- max(unlist(lapply(track, function(x) mdy.date(x[nrow(x), 
-                                                             2], x[nrow(x), 1], x[nrow(x), 3]))))
+  minDate <- min(unlist(lapply(track, function(x) mdy.date(x[1, 2], x[1, 1], x[1, 3]))))
+  maxDate <- max(unlist(lapply(track, function(x) mdy.date(x[nrow(x), 2], x[nrow(x), 1], x[nrow(x), 3]))))
   minLon <- min(unlist(lapply(track, function(x) min(x[, 4])))) -  2
   maxLon <- max(unlist(lapply(track, function(x) max(x[, 4])))) + 2
   minLat <- min(unlist(lapply(track, function(x) min(x[, 5])))) - 4
@@ -52,7 +50,7 @@ get.reynolds <- function(track, folder = tempdir(), removeland = TRUE)
   # Download and subset land mask
   link <- "ftp://ftp.cdc.noaa.gov/Datasets/noaa.oisst.v2/lsmask.nc"
   fname = paste(folder, "landmask.nc", sep = "/")
-  download.file(link, fname, mode="wb")
+  download.file(link, fname, mode = "wb", method = 'curl')
   
   nc <- nc_open(fname)
   land <- ncvar_get(nc, varid="mask")
@@ -62,7 +60,7 @@ get.reynolds <- function(track, folder = tempdir(), removeland = TRUE)
   # Get dataset ID and find out the end date and file dates of the imagery series
   link <- "http://www.esrl.noaa.gov/psd/cgi-bin/db_search/DBSearch.pl?Dataset=NOAA+Optimum+Interpolation+(OI)+SST+V2&Variable=Sea+Surface+Temperature"
   fname = paste(folder, "search.html", sep = "/")
-  download.file(link, fname, mode="wb")
+  download.file(link, fname, mode = "wb")
   dfile <- readLines(fname)
   unlink(fname)
   idstring <- dfile[grep("sst.wkmean.1990-present.nc", dfile)-3]
@@ -111,7 +109,7 @@ get.reynolds <- function(track, folder = tempdir(), removeland = TRUE)
   dstring <- dfile[grep("ftp://ftp.cdc.noaa.gov/", dfile)]
   flink <- unlist(strsplit(unlist(strsplit(dstring, "a href="))[2], ">"))[1]
   fname <- paste(folder, "oisst.nc", sep = "/")
-  download.file(flink, fname, mode="wb")
+  download.file(flink, fname, mode = "wb", method = 'curl')
   cat(paste(rep("=", options()$width), collapse = ""), "\n\n")
   cat(paste("SST data are downloaded as a netcdf file from \n\n", flink, "\n\n" , sep=""))
   #
@@ -162,7 +160,7 @@ get.reynolds <- function(track, folder = tempdir(), removeland = TRUE)
     for (j in 1:length(lon)) {
       xyz <- rbind(xyz, cbind(lat, lon[j], sst[,j], land[,j]))
     }
-    xyz <- na.omit(xyz)
+  xyz <- na.omit(xyz)
     if (removeland) xyz <- xyz[which(xyz[,4]==1), -4] 
     write.table(xyz, file = dest, 
                 quote = FALSE, row.names = FALSE, col.names = FALSE)
