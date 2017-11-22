@@ -2,7 +2,7 @@
 # res is either 30 second, one or two minute resolution (.5, 1, 2)
 
 get.bath.data <- function(lonlow, lonhigh, latlow, lathigh, folder = tempdir(), seaonly = T, res = c(.5,1)){
-	require(ncdf)
+	require(ncdf4)
 	
 	rot90 <- function(A) {
 		n <- dim(A)[2]
@@ -31,12 +31,12 @@ get.bath.data <- function(lonlow, lonhigh, latlow, lathigh, folder = tempdir(), 
 	opt <- sub("LONLOW", lonlow, opt)
 	opt <- sub("LONHIGH", lonhigh, opt)
 	
-	download.file(opt, fname, mode="wb")
+	download.file(opt, fname, mode = "wb")
 	
-	nc <- open.ncdf(fname)
-	lon <- as.numeric(get.var.ncdf(nc, varid="longitude"))
-	lat <- as.numeric(get.var.ncdf(nc, varid="latitude"))
-	bdata = get.var.ncdf(nc, varid=bathid)
+	nc <- nc_open(fname)
+	lon <- as.numeric(ncvar_get(nc, varid="longitude"))
+	lat <- as.numeric(ncvar_get(nc, varid="latitude"))
+	bdata = ncvar_get(nc, varid=bathid)
 	# if(res==.5)bdata=t(fliplr(bdata))
 	bdata = rot90(bdata)
 	lat = lat[order(lat)]
