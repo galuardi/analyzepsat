@@ -37,7 +37,7 @@ get.bath.data <- function(lonlow, lonhigh, latlow, lathigh, folder = tempdir(), 
 	lon <- as.numeric(ncvar_get(nc, varid="longitude"))
 	lat <- as.numeric(ncvar_get(nc, varid="latitude"))
 	bdata = ncvar_get(nc, varid=bathid)
-	# if(res==.5)bdata=t(fliplr(bdata))
+	if(res==.5)bdata=t(fliplr(bdata))
 	bdata = rot90(bdata)
 	lat = lat[order(lat)]
 	if(seaonly==T) bdata[bdata>=0] = 1
