@@ -7,6 +7,10 @@
 	return(.kfsys(paste("gmtdefaults -L 1>", .testgmt)) == 0)
 }
 
+fmtDay <- function(day) {
+	formatC(day, digits = 2, flag = "0", format = "d")
+}
+
 MWTextract = function (tagID, xlsfile, taglocfile, delta=F, minmax=F)
 {
 	#psatcon = odbcConnectExcel(xlsfile, readOnly = T)
