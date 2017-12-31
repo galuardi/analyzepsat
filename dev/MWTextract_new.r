@@ -1,3 +1,23 @@
+.fill.vals <- function (vec, span = 0.25) 
+{
+	len = length(vec)
+	vlen = 1:len
+	# fidx = (vec < 5) 
+	fidx1 = is.infinite(vec) 
+	fidx2 = is.na(vec)
+	fidx3 = vec<0
+	fidx4 = is.nan(vec)
+	fidx = as.logical(fidx1+fidx2+fidx3+fidx4)
+	fidx[is.na(fidx)] = TRUE
+	vec[fidx] = NA
+	if (any(fidx == T)) {
+		ltmp = loess(vec ~ vlen, span = span)
+		#ltmp = locfit(vec ~ vlen, alpha = span)
+		vec[fidx] = predict(ltmp, newdata = vlen[fidx])
+	}
+	vec
+}
+
 .kfsys<-function(cmd) if(.Platform$OS.type=='windows'){shell(cmd)}else{system(cmd)}
 
 .gmtok = function () 
