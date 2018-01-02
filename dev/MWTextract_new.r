@@ -27,7 +27,20 @@
 	return(.kfsys(paste("gmtdefaults -L 1>", .testgmt)) == 0)
 }
 
-MWTextract = function (tagID, xlsfile, taglocfile, delta=F, minmax=F)
+#' Read in data from a Microwave Telemetry Inc. fish report from a PSAT.
+#' Reads in all data from a Microwave Telemetry Inc. fish report and parses all pieces into a list. Currently, the only information not readin is the light based locations while the PSAT tag is floating at the surface. 
+#' 
+#' This function uses the \code{\link{readxl}} library. The fish report MUST be converted into the newest Excel format (.xlsx). Otherwise, RStudio will crash (email Hadley WIckham to complain..). 
+#' @param tagID Tag ID
+#' @param xlsfile .xlsx version of MWT fish report
+#' @param delta Logical. Should the delta limited temp/depths be flagged and removed
+#' @param minmax Logical. This should be T if the tabs are present. Older fish reports did not have this data feature. 
+#'
+#' @return a list with MWT PSAT header
+#' @export
+#'
+#' @examples
+MWTextract = function (tagID, xlsfile, delta=F, minmax=F)
 {
 	#psatcon = odbcConnectExcel(xlsfile, readOnly = T)
 	print("Reading tagging data")
@@ -260,6 +273,21 @@ print.MWTpsat<-function(x,...){
 }
 
 
+#' Prep data for kftrack/ukfsst
+#' Renders a standard format for kftrack/ukfsst analysis
+#' @param tag tag ID 
+#' @param xmin bounds for removal of outlying data
+#' @param xmax bounds for removal of outlying data
+#' @param ymin bounds for removal of outlying data
+#' @param ymax bounds for removal of outlying data
+#' @param keepall logical. If T, outliers are not removed
+#' @param use.minmax Should min/max temperature and depth tabs be used. If False, the archival data will be used to detemine a min/max for each day. If the minmax data are present, this should be True. 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' 
 prepf <- function (tag, xmin = -100, xmax = 0, ymin = 10, ymax = 55, keepall = F, 
 									 sst.depth = NULL, use.minmax = F) 
 {
@@ -279,8 +307,8 @@ prepf <- function (tag, xmin = -100, xmax = 0, ymin = 10, ymax = 55, keepall = F
 	# locs[len, 1:5] = loc.last
 	locs[, 4:5] = rev(locs[, 4:5])
 	dates = rev(locs[, 1:3])
-	if (is.null(sst.depth) == F) 
-		Temp[Z <= (sst.depth)] = NaN
+	# if (is.null(sst.depth) == F) 
+	# 	Temp[Z <= (sst.depth)] = NaN
 	maxz = apply(Z, 1, min, na.rm = T)
 	maxz[!is.finite(maxz)] = 0
 	maxt = apply(Temp, 1, max, na.rm = T)

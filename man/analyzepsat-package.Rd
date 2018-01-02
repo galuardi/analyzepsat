@@ -27,7 +27,7 @@ Benjamin Galuardi
 Large Pelagics Research Center
 University of Massachusetts, Amherst
 
-Maintainer:  <galuardi@eco.umass.edu>
+Maintainer:  <drdrumfish@gmail.com>
 
 Contributions from Chi Hin Lam, PhD
 }
