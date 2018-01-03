@@ -13,6 +13,20 @@
 #'
 #' @examples
 #' 
+#' 
+#' 
+#' 
+
+## Add this to MWT extract..
+tres = as.vector(t(dat$T))
+pres = as.vector(t(dat$Z))
+ttimes = seq(day0, dayT, 86400/96)
+idx = length(ttimes)
+
+tzm = data.frame(ttimes, temperature = tres[1:idx], depth = pres[1:idx])
+###
+
+
 prepf <- function (tag, xmin = -100, xmax = 0, ymin = 10, ymax = 55, keepall = F, 
 									 sst.depth = NULL, use.minmax = F) 
 {
