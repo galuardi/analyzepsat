@@ -1,3 +1,15 @@
+#' Title
+#'
+#' @param track 
+#' @param fname 
+#' @param level 
+#' @param npoints 
+#' @param proj4string 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 CI2shp <-
 function(track, fname = 'testshp', level = .95, npoints = 100, proj4string= CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs ")){
 	my.ellipse <- function(track, irow = 1, level = .95, npoints = 100){
@@ -22,6 +34,16 @@ function(track, fname = 'testshp', level = .95, npoints = 100, proj4string= CRS(
 	writePolyShape(all.spdf, fname, factor2char = TRUE, max_nchar=254)
 }
 
+#' Title
+#'
+#' @param track 
+#' @param fname 
+#' @param proj4string 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 track2shp <-
 function(track, fname = 'testshp', proj4string =CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs ")){
 coords = coordinates(track[,8:9])
