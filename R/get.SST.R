@@ -1,3 +1,14 @@
+#' Title
+#'
+#' @param lon 
+#' @param lat 
+#' @param SST 
+#' @param date 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 get.SST <-
 function(lon,lat,SST,date){
     X=as.vector(SST$lon)

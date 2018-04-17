@@ -1,3 +1,14 @@
+#' Title
+#'
+#' @param kfit 
+#' @param prepf 
+#' @param fill.sst 
+#' @param span 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 prepb = function (kfit, prepf, fill.sst = F, span = NULL) 
 {
 	if(any(prepf[,7]>0)) print('You have positive Depth values! Please correct and re-run this function')

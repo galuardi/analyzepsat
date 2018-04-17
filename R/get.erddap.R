@@ -1,3 +1,26 @@
+#' Title
+#'
+#' @param track 
+#' @param every.day 
+#' @param folder 
+#' @param server 
+#' @param type 
+#' @param product 
+#' @param variable 
+#' @param at 
+#' @param depth 
+#' @param yearless 
+#' @param kml.image 
+#' @param colorbar 
+#' @param full.extent 
+#' @param name 
+#' @param repack 
+#' @param trim 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 get.erddap <-
 function (track, every.day=5, folder = tempdir(), 
           # change every.day to a smaller number to get SST images at a more frequent basis

@@ -1,3 +1,17 @@
+#' Title
+#'
+#' @param fmat 
+#' @param bathy 
+#' @param save.samp 
+#' @param mintype 
+#' @param ci 
+#' @param npoints 
+#' @param fulldist 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 make.btrack.rem <-
 function(fmat,bathy,save.samp=F,mintype=2,ci=.95,npoints=300,fulldist=T){	
    len=length(fmat[,1])   

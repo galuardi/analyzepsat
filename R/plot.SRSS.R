@@ -1,3 +1,11 @@
+#' Title
+#'
+#' @param dat 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 plot.SRSS <-
 function(dat){
  # require(date)

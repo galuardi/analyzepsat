@@ -1,3 +1,18 @@
+#' Title
+#'
+#' @param tag 
+#' @param xmin 
+#' @param xmax 
+#' @param ymin 
+#' @param ymax 
+#' @param keepall 
+#' @param sst.depth 
+#' @param use.minmax 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 prepf <- function (tag, xmin = -100, xmax = 0, ymin = 10, ymax = 55, keepall = F, 
     sst.depth = NULL, use.minmax = F) 
 {

@@ -1,4 +1,16 @@
 
+#' Title
+#'
+#' @param allTZ 
+#' @param tbrks 
+#' @param xdiv 
+#' @param xseq 
+#' @param ... 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 plotThist = function(allTZ, tbrks = seq(3,35,by=1), xdiv = 4, xseq = .25, ...){
 ###   TEMP
 attach(allTZ)

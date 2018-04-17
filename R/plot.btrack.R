@@ -110,6 +110,29 @@ data(month.colors)
 #bath.colors <- colorRampPalette(c("#00007F", "blue", "#007FFF", "cyan"))
 
 # NEW VERSION
+#' Title
+#'
+#' @param btrack 
+#' @param map 
+#' @param cex 
+#' @param ci 
+#' @param bathy 
+#' @param add 
+#' @param bathlevels 
+#' @param alpha 
+#' @param bymonth 
+#' @param pch 
+#' @param bg 
+#' @param offset 
+#' @param legend 
+#' @param axes 
+#' @param xlims 
+#' @param ylims 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 plot.btrack<- function (btrack, map=NULL, cex = 1.5, ci = F, bathy = NULL, add = F, bathlevels = c(-100, -200), alpha = 0.15, bymonth = T, pch = 21, bg = 4, offset = 0, legend = F, axes=T, xlims=c(-80, -50), ylims = c(20, 50)) 
 {
     bath.colors <- colorRampPalette(c("#00007F", "blue", "#007FFF", 

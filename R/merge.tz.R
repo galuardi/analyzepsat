@@ -68,6 +68,16 @@
 ###############################################################################################
 ## new version of merge.tz function
 ###############################################################################################
+#' Title
+#'
+#' @param btrack 
+#' @param psat 
+#' @param tagID 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 merge.tz = function (btrack, psat, tagID = NULL){
 require(maptools)
     allTZ = NULL

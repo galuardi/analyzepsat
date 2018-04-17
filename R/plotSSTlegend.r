@@ -1,3 +1,13 @@
+#' Title
+#'
+#' @param cbrks 
+#' @param cex 
+#' @param font 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 plotSSTlegend <- function (cbrks = 33, cex=1.2, font= 1) 
 {
     jet.colors <- colorRampPalette(c("#00007F", "blue", "#007FFF", 

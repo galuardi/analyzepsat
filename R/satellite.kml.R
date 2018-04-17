@@ -1,3 +1,16 @@
+#' Title
+#'
+#' @param track 
+#' @param folder 
+#' @param local 
+#' @param product 
+#' @param interval 
+#' @param server 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 satellite.kml <-
 function (track, folder = getwd(), local = F, 
     product = "TBAssta", interval = 5, 

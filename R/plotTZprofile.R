@@ -1,3 +1,22 @@
+#' Title
+#'
+#' @param tzdata 
+#' @param zlim 
+#' @param pch 
+#' @param cex 
+#' @param font 
+#' @param cex.lab 
+#' @param cbrks 
+#' @param ylab 
+#' @param cex.axis 
+#' @param MWT 
+#' @param axes 
+#' @param legend 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 plotTZprofile =  function (tzdata, zlim = NULL, pch = 21, cex = 1.2, font = 1, 
     cex.lab = 1.2, cbrks = 33, ylab = "Depth (m)", cex.axis = 1, 
     MWT = T, axes = T, legend = T) 
