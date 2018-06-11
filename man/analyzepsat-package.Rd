@@ -7,7 +7,7 @@
 \description{
 Functions for reading Microwave Telemetry PSAT data into R,  analyzing it via state space methods,  and producing useful output. Emphasis is placed on data management and structures used in state space analysis and plotting. 
 
-Currently, the package supports MTI fish reports for regular and archival information from recovered tags. An alternate workflow allows use of Tagbase (\code{\link{http://code.google.com/p/tagbase/}}) for creating the psat structure for MTI tags. The new functionality also allows bathmetric correction of Wildlife Computer tag data. For the new workflow, import your data into Tagbase and use either the \code{\link{tb2psat}} function or, fit your WC generated track, and use the \code{\link{prepb.wc}} function.
+Currently, the package supports MTI fish reports for regular and archival information from recovered tags. An alternate workflow allows use of Tagbase (\code{\link{https://github.com/tagbase/tagbase}}) for creating the psat structure for MTI tags. The new functionality also allows bathmetric correction of Wildlife Computer tag data. For the new workflow, import your data into Tagbase and use either the \code{\link{tb2psat}} function or, fit your WC generated track, and use the \code{\link{prepb.wc}} function.
 
 As long as the your data conforms to the btrack class, you may use the bathymetric correction functionality of this package. Most plotting and other features are currently supported only for MTI tag data. 
 }

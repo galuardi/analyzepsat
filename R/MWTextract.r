@@ -53,7 +53,7 @@
 #' @export
 #'
 #' @examples
-#' none
+#' # none
 MWTextract = function (tagID, xlsfile, delta=F, minmax=F)
 {
 	#psatcon = odbcConnectExcel(xlsfile, readOnly = T)
