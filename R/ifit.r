@@ -1,6 +1,22 @@
-# interpolation using CRAWL for ukfit, trackit and btrack style objects.
 
 
+
+#' interpolation using CRAWL
+#' interpolation using CRAWL for ukfit, trackit and btrack style objects.
+#' @param ukfit 
+#' @param psat 
+#' @param bath 
+#' @param plot 
+#' @param getgmt 
+#' @param map 
+#' @param cilev 
+#' @param hemi 
+#' @param ... 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 ifit <- function(ukfit, psat = NULL, bath = bath, plot = F, getgmt = F, map=map, cilev = .95, hemi=c('E', 'W'), ...){
 require(crawl)
 require(analyzepsat)
