@@ -1,3 +1,12 @@
+#' make.sstmat
+#'
+#' @param sstfile 
+#' @param type 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 make.sstmat <- function(sstfile, type=c("Reynolds", "Blended")){
  require(ncdf)
  # require(matlab)

@@ -1,3 +1,32 @@
+#' tracks.kml
+#'
+#' @param tracklist 
+#' @param name 
+#' @param description 
+#' @param folder 
+#' @param kmlname 
+#' @param iconscale 
+#' @param turnon 
+#' @param showpath 
+#' @param showpoint 
+#' @param npoints 
+#' @param level 
+#' @param getimage 
+#' @param product 
+#' @param interval 
+#' @param local 
+#' @param lon360 
+#' @param coastwatch.erddap 
+#' @param variable 
+#' @param colorbar 
+#' @param imgname 
+#' @param palette 
+#' @param ... 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 tracks.kml <-
 function (tracklist=c("fit"), name = "", description = "", 
 	  folder = getwd(), kmlname = "doc.kml",

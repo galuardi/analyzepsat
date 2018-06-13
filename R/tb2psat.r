@@ -1,4 +1,16 @@
 
+#' tb2psat
+#'
+#' @param tbpath 
+#' @param pttid 
+#' @param recovered 
+#' @param is.ptt 
+#' @param ... 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 tb2psat <- function(tbpath = 'C:\\Ben\\UNH\\TAGS\\TAGBASE\\Tagbase4-9BFT.mdb', pttid = "55288", recovered=F, is.ptt=T, ...){
 require(RODBC)
 con = odbcConnectAccess(tbpath)

@@ -1,3 +1,12 @@
+#' merge.hv
+#'
+#' @param tracks 
+#' @param TZ 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 merge.hv <-
 function(tracks, TZ){
 

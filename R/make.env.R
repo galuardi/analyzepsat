@@ -1,3 +1,22 @@
+#' make.env
+#'
+#' @param allhv 
+#' @param fixz 
+#' @param plot 
+#' @param mbz 
+#' @param mbt 
+#' @param mint 
+#' @param minz 
+#' @param log 
+#' @param mmar 
+#' @param mcex 
+#' @param col 
+#' @param ... 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 make.env <- function (allhv, fixz = F, plot = F, mbz = c(-250), mbt = c(25), mint = 0, minz = 0, 
     log = T, mmar = c(4, 6, 2, 6), mcex = 1.2, col = jet.colors(100), 
     ...) 

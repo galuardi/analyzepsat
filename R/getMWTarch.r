@@ -1,3 +1,17 @@
+#' getMWTarch
+#'
+#' @param xlsfile 
+#' @param tagID 
+#' @param tyear 
+#' @param taglocfile 
+#' @param dayT 
+#' @param xT 
+#' @param transmit 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 getMWTarch <- function (xlsfile, tagID, tyear, taglocfile, dayT = NULL, xT = NULL, transmit=F) 
 {
     require(RODBC)

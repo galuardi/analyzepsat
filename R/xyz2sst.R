@@ -11,6 +11,15 @@
 #-----------------------------------------------------------------------------#
 
 
+#' xyz2sst
+#'
+#' @param tfile 
+#' @param ... 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 xyz2sst=function(tfile,...){
 require(adehabitat)
 g1=read.table(tfile)

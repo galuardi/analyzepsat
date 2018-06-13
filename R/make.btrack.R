@@ -1,3 +1,17 @@
+#' make.btrack
+#'
+#' @param fmat 
+#' @param bathy 
+#' @param save.samp 
+#' @param mintype 
+#' @param ci 
+#' @param npoints 
+#' @param fulldist 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 make.btrack = function (fmat, bathy, save.samp = F, mintype = 2, ci = 0.95, 
     npoints = 300, fulldist = T) 
 {

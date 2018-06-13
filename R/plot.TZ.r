@@ -1,3 +1,15 @@
+#' plot.TZ
+#'
+#' @param tzdata 
+#' @param Z 
+#' @param dcol 
+#' @param axes 
+#' @param trend 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 plot.TZ <-
 function(tzdata,Z=1,dcol=2,axes=T,trend = F){   
    # require(date)

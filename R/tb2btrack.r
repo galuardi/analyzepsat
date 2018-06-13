@@ -1,6 +1,16 @@
 
 # function to extract a corrected track from tagbase. Temp/depth not included
 
+#' tb2btrack
+#'
+#' @param tb 
+#' @param tagid 
+#' @param is.ptt 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 tb2btrack = function(tb, tagid, is.ptt = F){
 	require(RODBC)
 	con = odbcConnectAccess(tb)

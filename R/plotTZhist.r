@@ -1,4 +1,16 @@
 
+#' plotThist
+#'
+#' @param allTZ 
+#' @param tbrks 
+#' @param xdiv 
+#' @param xseq 
+#' @param ... 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 plotThist = function(allTZ, tbrks = seq(3,35,by=1), xdiv = 4, xseq = .25, ...){
 ###   TEMP
 attach(allTZ)
@@ -38,6 +50,19 @@ detach(allTZ)
    
 ###    DEPTH
 
+#' plotZhist
+#'
+#' @param allTZ 
+#' @param interval 
+#' @param plotmin 
+#' @param xdiv 
+#' @param xseq 
+#' @param ... 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 plotZhist = function(allTZ, interval = 10, plotmin = -200, xdiv=4,  xseq = .25, ...){
 attach(allTZ)
 tot = sum(!is.na(allTZ$depth))
