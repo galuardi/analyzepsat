@@ -27,3 +27,7 @@ export(tb2psat)
 export(track2shp)
 export(tracks.kml)
 export(xyz2sst)
+export(track2KD)
+export(kern2UD)
+export(UD.area)
+
