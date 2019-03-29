@@ -44,5 +44,6 @@ get.erddap(track, every.day = 5, folder = tempdir(),
 \item{trim}{}
 }
 \description{
+
 get.erddap
 }

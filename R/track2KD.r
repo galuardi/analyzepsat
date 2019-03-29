@@ -22,6 +22,18 @@ normalise <- function(ingrid){
 #============================================================#
 # function to get the home range density over a fine grid
 #============================================================#
+#' Title
+#'
+#' @param track 
+#' @param xsize 
+#' @param ysize 
+#' @param range.x 
+#' @param range.y 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 track2KD=function(track,xsize=.1,ysize=.1,range.x=c(-100,-5),range.y=c(20,50)){
   require(GenKern)
   dd=dim(track)
@@ -51,6 +63,14 @@ track2KD=function(track,xsize=.1,ysize=.1,range.x=c(-100,-5),range.y=c(20,50)){
 # Function to convert a KF kernel object to UDvolume in asc form
 #============================================================#
 
+#' Title
+#'
+#' @param x 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 kern2UD <- function(x){
 		asc = as.asc(normalise(x[[3]]), xll = min(x[[1]]), yll = min(x[[2]]), cellsize = diff(x[[1]])[2], type = c("numeric"))
 		cs <- attr(asc, "cellsize")
@@ -70,6 +90,14 @@ kern2UD <- function(x){
 }
 
 
+#' Title
+#'
+#' @param x 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 kern2UDarch <- function(x){
 		asc = as.asc(normalize(x[[3]]), xll = min(x[[1]]), yll = min(x[[2]]), cellsize = diff(x[[1]])[2], type = c("numeric"))
 		cs <- attr(asc, "cellsize")
@@ -89,6 +117,15 @@ kern2UDarch <- function(x){
 }
 
 
+#' Title
+#'
+#' @param x 
+#' @param levels 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 UD.area = function(x, levels = seq(.20, .95, by = .05)){
     area <- list()
     contours <- list()
@@ -112,6 +149,15 @@ UD.area = function(x, levels = seq(.20, .95, by = .05)){
 # contour(kern2UD(monthUD[[3]]), add=T)
 
 
+#' Title
+#'
+#' @param x 
+#' @param lev 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 kern2vertices <- function(x, lev=95){
 ud <- kern2UD(x)
         xyl <- getXYcoords(ud)
@@ -140,6 +186,16 @@ ud <- kern2UD(x)
 # Requires input of KF kernel object and tracks where long/lat are columns 8:9
 #==================================================================#
  
+#' Title
+#'
+#' @param btrack 
+#' @param kern 
+#' @param level 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 matchkern <- function(btrack, kern, level = c(.5, .95)){
 require(adehabitat)
 require(sp)

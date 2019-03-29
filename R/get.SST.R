@@ -1,9 +1,10 @@
+
 #' get.SST
 #'
-#' @param lon 
-#' @param lat 
-#' @param SST 
-#' @param date 
+#' @param lon
+#' @param lat
+#' @param SST
+#' @param date
 #'
 #' @return
 #' @export
@@ -18,4 +19,3 @@ function(lon,lat,SST,date){
     zidx=which.min((as.numeric(date)-as.numeric(SST$sstdates))^2)
     SST$DATA[xidx,yidx,zidx]
   }
-

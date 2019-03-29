@@ -1,16 +1,18 @@
+
 #' ls.objects
 #'
-#' @param pos 
-#' @param pattern 
-#' @param order.by 
-#' @param decreasing 
-#' @param head 
-#' @param n 
+#' @param pos
+#' @param pattern
+#' @param order.by
+#' @param decreasing
+#' @param head
+#' @param n
 #'
 #' @return
 #' @export
 #'
 #' @examples
+
 .ls.objects <- function (pos = 1, pattern, order.by,
                         decreasing=FALSE, head=FALSE, n=5) {
     napply <- function(names, fn) sapply(names, function(x)
@@ -36,4 +38,3 @@
 lsos <- function(..., n=10) {
     .ls.objects(..., order.by="Size", decreasing=TRUE, head=TRUE, n=n)
 }
-

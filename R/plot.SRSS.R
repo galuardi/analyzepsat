@@ -1,6 +1,7 @@
+
 #' plot.SRSS
 #'
-#' @param dat 
+#' @param dat
 #'
 #' @return
 #' @export
@@ -13,7 +14,7 @@ function(dat){
  SRSS=dat$SRSS
  SRSS[which(SRSS[,3]<500),3]=SRSS[which(SRSS[,3]<500),3]+1400
  SRSS[which(SRSS[,2]>1400),3]=SRSS[which(SRSS[,2]>1400),2]-1400
- dat$SRSS=SRSS 
+ dat$SRSS=SRSS
 
 par(mar = c(6,4,2,1) + 0.1)
    plot(SRSS[,2],ylim=c(0,1500),axes=F,pch=19,col=2,xlab="",ylab="Minutes after midnight")
@@ -22,9 +23,8 @@ par(mar = c(6,4,2,1) + 0.1)
    xdate=date.mdy(SRSS[,1])$month
    xp <- par("xaxp")
    xcut <- round(seq(xp[1], length(SRSS[,1]), length = 12))
-   xcut[1]=1  
+   xcut[1]=1
    axis(1,at=xcut,label=paste((SRSS[xcut,1])),las=2);axis(2)
    box()
    #title(names(dat)[i])
    }
-

@@ -2,6 +2,7 @@
 % Please edit documentation in R/plotTZhist.r
 \name{plotThist}
 \alias{plotThist}
+
 \title{plotThist}
 \usage{
 plotThist(allTZ, tbrks = seq(3, 35, by = 1), xdiv = 4, xseq = 0.25, ...)
@@ -18,5 +19,6 @@ plotThist(allTZ, tbrks = seq(3, 35, by = 1), xdiv = 4, xseq = 0.25, ...)
 \item{...}{}
 }
 \description{
+
 plotThist
 }

@@ -1,11 +1,12 @@
 
+
 #' plotThist
 #'
-#' @param allTZ 
-#' @param tbrks 
-#' @param xdiv 
-#' @param xseq 
-#' @param ... 
+#' @param allTZ
+#' @param tbrks
+#' @param xdiv
+#' @param xseq
+#' @param ...
 #'
 #' @return
 #' @export
@@ -47,17 +48,17 @@ text(-1*len/19,4,'Night', cex = 1.5, font=2);text(len/19,4,'Day', cex = 1.5, fon
 box()
 detach(allTZ)
 }
-   
+
 ###    DEPTH
 
 #' plotZhist
 #'
-#' @param allTZ 
-#' @param interval 
-#' @param plotmin 
-#' @param xdiv 
-#' @param xseq 
-#' @param ... 
+#' @param allTZ
+#' @param interval
+#' @param plotmin
+#' @param xdiv
+#' @param xseq
+#' @param ...
 #'
 #' @return
 #' @export

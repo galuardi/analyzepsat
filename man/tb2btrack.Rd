@@ -2,6 +2,7 @@
 % Please edit documentation in R/tb2btrack.r
 \name{tb2btrack}
 \alias{tb2btrack}
+
 \title{tb2btrack}
 \usage{
 tb2btrack(tb, tagid, is.ptt = F)
@@ -14,5 +15,6 @@ tb2btrack(tb, tagid, is.ptt = F)
 \item{is.ptt}{}
 }
 \description{
+
 tb2btrack
 }

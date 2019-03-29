@@ -1,11 +1,11 @@
 #-----------------------------------------------------------------------------#
 # Function to output a matrix from an xyz style file
 #
-# Author: Ben Galaurdi
+# Author: Ben galuardi
 # Date: 4-29-2009
 #
-# Contact: galuardi@eco.umass.edu
-# 
+# Contact: drdrumfish@gmail.com
+#
 # Usage:
 # Z=xyz2sst('C:/sstfile.dat')
 #-----------------------------------------------------------------------------#
@@ -13,8 +13,8 @@
 
 #' xyz2sst
 #'
-#' @param tfile 
-#' @param ... 
+#' @param tfile
+#' @param ...
 #'
 #' @return
 #' @export
@@ -41,7 +41,7 @@ for(i in 1:length(Y)){
       }
     Z[xidx,i]=yidx[,3]
 }
-detach(g1)  
+detach(g1)
 #Z=list(X,Y,Z)
 #names(Z)=c('X','Y','Z')
 as.asc(Z, xll = min(X), yll=min(Y), cellsize = diff(X)[1],...)

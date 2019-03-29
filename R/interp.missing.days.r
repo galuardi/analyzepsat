@@ -4,7 +4,16 @@
 #===================================================================================================================================#
 
 # match ukfit dates with xtrack dates
-.fill.vals <- function (vec, span = 0.25) 
+#' Title
+#'
+#' @param vec 
+#' @param span 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+fill.vals <- function (vec, span = 0.25) 
 {
     len = length(vec)
     vlen = 1:len

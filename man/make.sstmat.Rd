@@ -2,6 +2,7 @@
 % Please edit documentation in R/make.sstmat.r
 \name{make.sstmat}
 \alias{make.sstmat}
+
 \title{make.sstmat}
 \usage{
 make.sstmat(sstfile, type = c("Reynolds", "Blended"))
@@ -12,5 +13,6 @@ make.sstmat(sstfile, type = c("Reynolds", "Blended"))
 \item{type}{}
 }
 \description{
+
 make.sstmat
 }

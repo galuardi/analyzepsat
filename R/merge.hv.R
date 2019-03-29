@@ -1,7 +1,8 @@
+
 #' merge.hv
 #'
-#' @param tracks 
-#' @param TZ 
+#' @param tracks
+#' @param TZ
 #'
 #' @return
 #' @export

@@ -1,3 +1,13 @@
+#' fit2csv
+#'
+#' @param fit 
+#' @param folder 
+#' @param name 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 fit2csv <- function(fit, folder=getwd(), name=NA)
 { 
   require(date)

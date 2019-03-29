@@ -1,19 +1,20 @@
+
 #' make.btrack
 #'
-#' @param fmat 
-#' @param bathy 
-#' @param save.samp 
-#' @param mintype 
-#' @param ci 
-#' @param npoints 
-#' @param fulldist 
+#' @param fmat
+#' @param bathy
+#' @param save.samp
+#' @param mintype
+#' @param ci
+#' @param npoints
+#' @param fulldist
 #'
 #' @return
 #' @export
 #'
 #' @examples
-make.btrack = function (fmat, bathy, save.samp = F, mintype = 2, ci = 0.95, 
-    npoints = 300, fulldist = T) 
+make.btrack = function (fmat, bathy, save.samp = F, mintype = 2, ci = 0.95,
+    npoints = 300, fulldist = T)
 {
     len = length(fmat[, 1])
     ntrack = as.data.frame(matrix(0, len, 6))
@@ -24,7 +25,7 @@ make.btrack = function (fmat, bathy, save.samp = F, mintype = 2, ci = 0.95,
         print(paste("Bathymetric point ", i, sep = ""))
         point = fmat[i, ]
         samp = .get.samp(point[4:9], npoints, ci = ci)
-        samp.bath = sapply(1:length(samp[, 1]), function(j) .get.bath(samp[j, 
+        samp.bath = sapply(1:length(samp[, 1]), function(j) .get.bath(samp[j,
             1], samp[j, 2], bathy))
         sidx = samp.bath <= as.numeric(point[10])
         samp = samp[sidx, ]
@@ -33,20 +34,20 @@ make.btrack = function (fmat, bathy, save.samp = F, mintype = 2, ci = 0.95,
 			samp[,1] = jitter(samp[,1])
 			samp[,2] = jitter(samp[,2])  # 5% jitter if we use the same sampling as previous time step
         }
-        if (mintype == 2) 
-            ntrack[i, 5:6] = .get.min2(ntrack[i - 1, 5], ntrack[i - 
-                1, 6], .denselect(samp)[1], .denselect(samp)[2], 
+        if (mintype == 2)
+            ntrack[i, 5:6] = .get.min2(ntrack[i - 1, 5], ntrack[i -
+                1, 6], .denselect(samp)[1], .denselect(samp)[2],
                 samp)
-        if (mintype == 3) 
-            ntrack[i, 5:6] = .get.min3(ntrack[i + 1, 5], ntrack[i + 
-                1, 6], ntrack[i - 1, 5], ntrack[i - 1, 6], .denselect(samp)[1], 
+        if (mintype == 3)
+            ntrack[i, 5:6] = .get.min3(ntrack[i + 1, 5], ntrack[i +
+                1, 6], ntrack[i - 1, 5], ntrack[i - 1, 6], .denselect(samp)[1],
                 .denselect(samp)[2], samp)
-        if (mintype == 4) 
-            ntrack[i, 5:6] = .get.min3(ntrack[i + 1, 5], ntrack[i + 
-                1, 6], .denselect(samp)[1], .denselect(samp)[2], 
+        if (mintype == 4)
+            ntrack[i, 5:6] = .get.min3(ntrack[i + 1, 5], ntrack[i +
+                1, 6], .denselect(samp)[1], .denselect(samp)[2],
                 samp)
         sptmp[[i]] = samp
-        b.init = .get.bath(as.numeric(point[8]), as.numeric(point[9]), 
+        b.init = .get.bath(as.numeric(point[8]), as.numeric(point[9]),
             bathy)
         print(c(b.init - as.numeric(point[10])))
         if (b.init <= as.numeric(point[10]) & fulldist == F) {
@@ -59,7 +60,7 @@ make.btrack = function (fmat, bathy, save.samp = F, mintype = 2, ci = 0.95,
         }
     }
     btrack = cbind(fmat[, 1:3], ntrack, fmat[, 10:11])
-    names(btrack) = c("Year","Month", "Day",  "V11", "V12", "V21", 
+    names(btrack) = c("Year","Month", "Day",  "V11", "V12", "V21",
         "V22", "Lon_E", "Lat_N", "maxz", "maxt")
 	attr(btrack,'Header') = "#Bathymetric corrected track"
     if (save.samp) {
@@ -70,16 +71,16 @@ make.btrack = function (fmat, bathy, save.samp = F, mintype = 2, ci = 0.95,
     }
 }
 
-# print.btrack<-function(x,...){ 
+# print.btrack<-function(x,...){
   # "%+%"<-function(s1, s2)paste(s1, s2, sep="")
   # out<-"\n\n#Bathymetric corrected kf/ukf track\n"
 
      # head(x)
 # }
 
-# now we use the MASS library mvrnorm function 
+# now we use the MASS library mvrnorm function
 .get.samp<-
-function (vec, npoints, ci = 0.95) 
+function (vec, npoints, ci = 0.95)
 {
     vec = as.numeric(vec)
     Sigma <- matrix(vec[1:4], 2, 2) * ci
@@ -94,9 +95,9 @@ function (vec, npoints, ci = 0.95)
 # function(vec,npoints,ci=.95){
 	# require(QRMlib)
 	# vec=as.numeric(vec)
-	# Sigma <- matrix(vec[1:4],2,2)*ci; 
-	# mu <- c(vec[5:6]); 
-	# if(sum(Sigma)>0){ 
+	# Sigma <- matrix(vec[1:4],2,2)*ci;
+	# mu <- c(vec[5:6]);
+	# if(sum(Sigma)>0){
 	# ndata <- .rmnorm2(npoints,Sigma,mu);
 	# return(ndata)
 	# }
@@ -121,7 +122,7 @@ function(lon1,lat1,lon2,lat2,lon3,lat3,samp){
 }
 
 .rmnorm2 <-
-function (n, Sigma = equicorr(d, rho), mu = rep(0, d), d = 2, 
+function (n, Sigma = equicorr(d, rho), mu = rep(0, d), d = 2,
     rho = 0.7) {
     d <- dim(Sigma)[1]
     A <- t(chol(Sigma,pivot=T))
@@ -172,17 +173,17 @@ function(lon,lat,BATH){
 	    a <- seq(0, 2 * pi, len = npoints)
 	    polymat=(matrix(c(t.quan * scale[1] * cos(a + d/2) + centre[1],
                 t.quan * scale[2] * cos(a - d/2) + centre[2]), npoints,2))
-   if(saveobj==T){return(polymat)} 
-   else {polygon(polymat, col = col, border = border, density = NA, lwd = lwd,...)}	    
-      #polygon(polymat, col = col, border = border, density = NA, lwd = lwd,...)	    
+   if(saveobj==T){return(polymat)}
+   else {polygon(polymat, col = col, border = border, density = NA, lwd = lwd,...)}
+      #polygon(polymat, col = col, border = border, density = NA, lwd = lwd,...)
 #	    polygon(matrix(c(t.quan * scale[1] * cos(a + d/2) + centre[1],
 #		t.quan * scale[2] * cos(a - d/2) + centre[2]), npoints,
 #		2), col = col, border = border, density = NA, lwd = lwd,
 #		...)
 	}
 
-.btrack.bs <- function (fmat, bathy, save.samp = F, mintype = 2, ci = 0.95, 
-    npoints = 300, fulldist = T) 
+.btrack.bs <- function (fmat, bathy, save.samp = F, mintype = 2, ci = 0.95,
+    npoints = 300, fulldist = T)
 {
     len = length(fmat[, 1])
     ntrack = as.data.frame(matrix(0, len, 6))
@@ -193,27 +194,27 @@ function(lon,lat,BATH){
         print(paste("Bathymetric point ", i, sep = ""))
         point = fmat[i, ]
         samp = .get.samp(point[4:9], npoints, ci = ci)
-        samp.bath = sapply(1:length(samp[, 1]), function(j) .get.bath(samp[j, 
+        samp.bath = sapply(1:length(samp[, 1]), function(j) .get.bath(samp[j,
             1], samp[j, 2], bathy))
         sidx = samp.bath <= as.numeric(point[10])
         samp = samp[sidx, ]
         if (length(samp[sidx]) < 3) {
             samp = sptmp[[i + 1]]
         }
-        if (mintype == 2) 
-            ntrack[i, 5:6] = .get.min2(ntrack[i - 1, 5], ntrack[i - 
-                1, 6], .denselect(samp)[1], .denselect(samp)[2], 
+        if (mintype == 2)
+            ntrack[i, 5:6] = .get.min2(ntrack[i - 1, 5], ntrack[i -
+                1, 6], .denselect(samp)[1], .denselect(samp)[2],
                 samp)
-        if (mintype == 3) 
-            ntrack[i, 5:6] = .get.min3(ntrack[i + 1, 5], ntrack[i + 
-                1, 6], ntrack[i - 1, 5], ntrack[i - 1, 6], .denselect(samp)[1], 
+        if (mintype == 3)
+            ntrack[i, 5:6] = .get.min3(ntrack[i + 1, 5], ntrack[i +
+                1, 6], ntrack[i - 1, 5], ntrack[i - 1, 6], .denselect(samp)[1],
                 .denselect(samp)[2], samp)
-        if (mintype == 4) 
-            ntrack[i, 5:6] = .get.min3(ntrack[i + 1, 5], ntrack[i + 
-                1, 6], .denselect(samp)[1], .denselect(samp)[2], 
+        if (mintype == 4)
+            ntrack[i, 5:6] = .get.min3(ntrack[i + 1, 5], ntrack[i +
+                1, 6], .denselect(samp)[1], .denselect(samp)[2],
                 samp)
         sptmp[[i]] = samp
-        b.init = .get.bath(as.numeric(point[8]), as.numeric(point[9]), 
+        b.init = .get.bath(as.numeric(point[8]), as.numeric(point[9]),
             bathy)
         print(c(b.init - as.numeric(point[10])))
         if (b.init <= as.numeric(point[10]) & fulldist == F) {
@@ -226,7 +227,7 @@ function(lon,lat,BATH){
         }
     }
     btrack = cbind(fmat[, 1:3], ntrack, fmat[, 10:11])
-    names(btrack) = c("Day", "Month", "Year", "V11", "V12", "V21", 
+    names(btrack) = c("Day", "Month", "Year", "V11", "V12", "V21",
         "V22", "Lon_E", "Lat_N", "maxz", "maxt")
     if (save.samp) {
         return(btrack, sptmp)

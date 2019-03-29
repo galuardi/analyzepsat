@@ -1,17 +1,18 @@
 
 
 
+
 #' interpolation using CRAWL
 #' interpolation using CRAWL for ukfit, trackit and btrack style objects.
-#' @param ukfit 
-#' @param psat 
-#' @param bath 
-#' @param plot 
-#' @param getgmt 
-#' @param map 
-#' @param cilev 
-#' @param hemi 
-#' @param ... 
+#' @param ukfit
+#' @param psat
+#' @param bath
+#' @param plot
+#' @param getgmt
+#' @param map
+#' @param cilev
+#' @param hemi
+#' @param ...
 #'
 #' @return
 #' @export
@@ -55,7 +56,7 @@ tfmat=as.data.frame(matrix(NA,length(unique(tdate)),11))
 		}else{
 			tfmat[i,]=temp[tidx[1],]
 		}
-	names(tfmat)=c('year','month','day','V11','V12','V21','V22','Lon','Lat','max_depth','sst')	
+	names(tfmat)=c('year','month','day','V11','V12','V21','V22','Lon','Lat','max_depth','sst')
 	}
 tfmat
 }
@@ -92,9 +93,9 @@ if(class(ukfit)=='btrack'){
 }
 
 
-#==============================================================================================#	
+#==============================================================================================#
 # Generate a CRW fit object
-#==============================================================================================#	
+#==============================================================================================#
 {
 # index of points we want to keep
 # if using a 'badidx' object, it can be included here..
@@ -105,7 +106,7 @@ keepidx = sapply(1:nrow(tmptrack), function(i) .get.bath(tmptrack$Lon[i], tmptra
 tmptrack_o=tmptrack
 
 # try taking out land points just after ukf routine and before anything else...
-tmptrack = tmptrack[keepidx,]  
+tmptrack = tmptrack[keepidx,]
 
 # our dates from ukf fit
 if(class(ukfit)=='btrack'){
@@ -114,7 +115,7 @@ if(class(ukfit)=='btrack'){
 	tmptrack$time = as.numeric(mdy.date(tmptrack$month,tmptrack$day,tmptrack$year))
 }
 
-# object for CRW fit (single)	
+# object for CRW fit (single)
 crwfit = NULL
 
 
@@ -126,7 +127,7 @@ slat = tmptrack$Lat[1]
 
 #initial latitude variance
 latdrift = 1
-#==============================================================================================#	
+#==============================================================================================#
 # run a while loop to make sure things are valid in the end..
 	while(class(crwfit)!="crwFit"){
 		print(latdrift)
@@ -141,7 +142,7 @@ latdrift = 1
 	## the fixPar flags make the difference here. Still not sure why..
 	crwfit <- try(crwMLE(mov.model=~1, err.model=list(x=~V11, y=~V22), drift.model=TRUE,
 		      data=tmptrack, coord=c("Lon", "Lat"),
-		      Time.name="time", initial.state=initial.drift, polar.coord=TRUE, fixPar = c(0,NA,0,NA,0,0,0,0),         
+		      Time.name="time", initial.state=initial.drift, polar.coord=TRUE, fixPar = c(0,NA,0,NA,0,0,0,0),
 		      control=list(maxit=2000,trace=1, REPORT=10), attempts = 10),silent=T) #c(0,1,0,1.5,0,0,0,0)
 	  latdrift = latdrift+.5
 }
@@ -149,10 +150,10 @@ latdrift = 1
 # the final crw fit.
 crwfit
 }
-#==============================================================================================#	
+#==============================================================================================#
 # Predict from the CRW fit
 #==============================================================================================#
-{	
+{
 
 ##Make daily location predictions
 fit = crwfit
@@ -179,7 +180,7 @@ ntrack[,1:3] = cbind(date.mdy(predTime)[[3]],date.mdy(predTime)[[1]],date.mdy(pr
 ntrack[idx,8] = predObj$mu.x[idx]
 ntrack[idx,9] = predObj$mu.y[idx]
 
-# be consistent with 0-360 stuff... 
+# be consistent with 0-360 stuff...
 ntrack$Lon = ntrack$Lon
 
 # CRAWL uses srqt(diag(var)) for stndard error here... so, reconvert for variance
@@ -191,7 +192,7 @@ ntrack[idx,5:6] = 0
 
 }
 
-#==============================================================================================#	
+#==============================================================================================#
 # Steps for bathymetric correction following CRW predict
 #==============================================================================================#
 {
@@ -205,7 +206,7 @@ if(!is.null(psat)){
  trdates = fulldates
  if(any(class(fulldates)=='POSIXct')) trdates = mdy.date(as.numeric(format(fulldates,'%m')), as.numeric(format(fulldates,'%d')),as.numeric(format(fulldates,'%Y')))
  didx = match(trdates, predObj$time)
- 
+
 if(exists('mmt', mode = 'any')){
 	ntrack$max_depth = mmz[didx,3]
 	ntrack$sst =  mmt[didx,3]
@@ -232,13 +233,13 @@ while(class(nbtrack)!='data.frame'){
 	nbtrack = try(make.btrack(ntrack, bath, ci = cilev), silent = T)
 	cilev = cilev+.5
   }
-    
-#save it 
+
+#save it
 int.track = nbtrack
  }
-#==============================================================================================#	
+#==============================================================================================#
 # plots
-#==============================================================================================#	
+#==============================================================================================#
 
 if(plot==T){
 
@@ -249,8 +250,8 @@ if(plot==T){
 data(ATL)
 # and...Anders GMT stuff
 if(getgmt==T){
-map = plotmap(-100, 20, -30, 60, res=3, save = T, grid = F, seacolor = NULL, landcolor ='khaki') ; 
-dev.off(); 
+map = plotmap(-100, 20, -30, 60, res=3, save = T, grid = F, seacolor = NULL, landcolor ='khaki') ;
+dev.off();
 map[,1] = map[,1]+360
 }else{
  map=NULL
@@ -279,5 +280,3 @@ box(lwd=2)
 }
 nbtrack
 }
- 
- 

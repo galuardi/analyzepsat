@@ -2,6 +2,7 @@
 % Please edit documentation in R/plotSSTlegend.r
 \name{plotSSTlegend}
 \alias{plotSSTlegend}
+
 \title{plotSSTlegend}
 \usage{
 plotSSTlegend(cbrks = 33, cex = 1.2, font = 1)
@@ -14,5 +15,6 @@ plotSSTlegend(cbrks = 33, cex = 1.2, font = 1)
 \item{font}{}
 }
 \description{
+
 plotSSTlegend
 }

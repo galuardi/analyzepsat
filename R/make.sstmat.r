@@ -1,7 +1,8 @@
+
 #' make.sstmat
 #'
-#' @param sstfile 
-#' @param type 
+#' @param sstfile
+#' @param type
 #'
 #' @return
 #' @export
@@ -10,7 +11,7 @@
 make.sstmat <- function(sstfile, type=c("Reynolds", "Blended")){
  require(ncdf)
  # require(matlab)
- 
+
  fliplr <- function(A){
 	A = apply(A, 2, rev)
 	A
@@ -20,7 +21,7 @@ make.sstmat <- function(sstfile, type=c("Reynolds", "Blended")){
 	A = t(apply(A, 1, rev))
 	A
 }
- 
+
  sstfile = open.ncdf(sstfile)
  if(type == "Reynolds"){
   land <- get.var.ncdf(sstfile, varid="land")
@@ -32,7 +33,7 @@ make.sstmat <- function(sstfile, type=c("Reynolds", "Blended")){
   #as.Date("1800-01-01") + get.var.ncdf(sstfile, varid="time")
   sstmat = list(lon=lon, lat=lat, sstdates=sdate, DATA=sst)
  }
- 
+
  if(type == "Blended"){
   lon = as.numeric(get.var.ncdf(sstfile, 'longitude'))-360
   lat = as.numeric(sort(get.var.ncdf(sstfile, 'latitude')))

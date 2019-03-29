@@ -1,39 +1,40 @@
+
 #' get.erddap
 #'
-#' @param track 
-#' @param every.day 
-#' @param folder 
-#' @param server 
-#' @param type 
-#' @param product 
-#' @param variable 
-#' @param at 
-#' @param depth 
-#' @param yearless 
-#' @param kml.image 
-#' @param colorbar 
-#' @param full.extent 
-#' @param name 
-#' @param repack 
-#' @param trim 
+#' @param track
+#' @param every.day
+#' @param folder
+#' @param server
+#' @param type
+#' @param product
+#' @param variable
+#' @param at
+#' @param depth
+#' @param yearless
+#' @param kml.image
+#' @param colorbar
+#' @param full.extent
+#' @param name
+#' @param repack
+#' @param trim
 #'
 #' @return
 #' @export
 #'
 #' @examples
 get.erddap <-
-function (track, every.day=5, folder = tempdir(), 
+function (track, every.day=5, folder = tempdir(),
           # change every.day to a smaller number to get SST images at a more frequent basis
-          server = 'http://coastwatch.pfeg.noaa.gov/erddap', 
+          server = 'http://coastwatch.pfeg.noaa.gov/erddap',
   # server = 'http://upwell.pfeg.noaa.gov/erddap', for more choices
-  type=2, 
+  type=2,
           # see "filetype" below for file formats:
   # c('.csv', '.tsv', '.nc', '.kml', '.largePng')
-          product = 'ncdcOisst2Agg', variable='sst', at=1, 
-  depth = c(0,0), yearless = F, 
-  kml.image = F, colorbar = "|||||", full.extent = F, 
+          product = 'ncdcOisst2Agg', variable='sst', at=1,
+  depth = c(0,0), yearless = F,
+  kml.image = F, colorbar = "|||||", full.extent = F,
   # an example of color bar, Rainbow2|D|Linear|10|20|30
-      name = NA, repack = TRUE, trim = TRUE) 
+      name = NA, repack = TRUE, trim = TRUE)
 {
     ### More info on: http://coastwatch.pfeg.noaa.gov/erddap/info/index.html
     ### product <- c('ncdcOisst2Agg', 'ncdcOisst2AmsrAgg', 'erdG1ssta1day', 'erdBAssta5day')
@@ -46,9 +47,9 @@ link <- paste(server, "/info/", product, "/index.html", sep="")
         x <- date.mdy(date)
 yy <- x$year
 if (yearless) yy <- "0000"
-        paste(yy, 
-    formatC(x$month, digits = 1, flag = "0", 
-            format = "d"), formatC(x$day, digits = 1, flag = "0", 
+        paste(yy,
+    formatC(x$month, digits = 1, flag = "0",
+            format = "d"), formatC(x$day, digits = 1, flag = "0",
             format = "d"), sep = "-")
     }
     fmtDay <- function(day) {
@@ -59,7 +60,7 @@ if (yearless) yy <- "0000"
         dir.create(folder)
     }
     else {
-        if (!testdir) 
+        if (!testdir)
             stop("The folder name supplied is in fact a filename")
     }
     fl <- dir(folder)
@@ -69,19 +70,19 @@ if (yearless) yy <- "0000"
     }
 ### Turn all lon to 0-360
 track$lon[which(track$lon<0)] <- track$lon[which(track$lon<0)] + 360
-if (is.data.frame(track)) 
+if (is.data.frame(track))
         track <- list(track)
-minLon <- min(unlist(lapply(track, function(x) min(x[, 4])))) - 
+minLon <- min(unlist(lapply(track, function(x) min(x[, 4])))) -
         5
-    maxLon <- max(unlist(lapply(track, function(x) max(x[, 4])))) + 
+    maxLon <- max(unlist(lapply(track, function(x) max(x[, 4])))) +
         5
-    minLat <- min(unlist(lapply(track, function(x) min(x[, 5])))) - 
+    minLat <- min(unlist(lapply(track, function(x) min(x[, 5])))) -
         5
-    maxLat <- max(unlist(lapply(track, function(x) max(x[, 5])))) + 
+    maxLat <- max(unlist(lapply(track, function(x) max(x[, 5])))) +
         5
-    minDate <- min(unlist(lapply(track, function(x) mdy.date(x[1, 
+    minDate <- min(unlist(lapply(track, function(x) mdy.date(x[1,
         2], x[1, 3], x[1, 1]))))
-    maxDate <- max(unlist(lapply(track, function(x) mdy.date(x[nrow(x), 
+    maxDate <- max(unlist(lapply(track, function(x) mdy.date(x[nrow(x),
         2], x[nrow(x), 3], x[nrow(x), 1]))))
     minDate <- minDate - 10
     maxDate <- maxDate + 10
@@ -138,9 +139,9 @@ opt <- gsub("DEPTH2", depth[2], opt)
       y1 <- date.mdy(d)$year
               d1 <- d - mdy.date(month = 1, day = 1, year = y1) + 1
               y2 <- date.mdy(d + every.day - 1)$year
-              d2 <- (d + every.day -1) - mdy.date(month = 1, 
+              d2 <- (d + every.day -1) - mdy.date(month = 1,
                      day = 1, year = y2) + 1
-              filename <- paste(substr(name,1,2), y1, fmtDay(d1), 
+              filename <- paste(substr(name,1,2), y1, fmtDay(d1),
                          "_", y2, fmtDay(d2), "_", product, ".xyz", sep = "")}
         else {filename <- paste(name, as.Date(as.date(d)), ext, sep="")}
         dest <- paste(folder, filename, sep = "/")
@@ -148,7 +149,7 @@ opt <- gsub("DEPTH2", depth[2], opt)
         if ((repack==T)&&(ext=='.tsv')){
     tmp <- read.table(dest, skip = 2)[, c(-1,-2)]
             if (trim) {tmp <- tmp[complete.cases(tmp), ]}
-            write.table(tmp, file = dest, 
+            write.table(tmp, file = dest,
                         quote = FALSE, row.names = FALSE, col.names = FALSE)
     }
 if (ext=='.kml'){
@@ -163,8 +164,8 @@ begind <- as.Date(as.date(d))
 ctime1 <-  format.Date(begind, "%H:%M:%S")
 ctime2 <-  format.Date(begind, "%Y-%m-%dT%H:%M:%S")
 endd <- (every.day-1)*60*60*24
-ctime2 <- format(strptime(ctime2, "%Y-%m-%dT%H:%M:%S", 
-  tz="GMT")+ endd + 60*60*24 -1, 
+ctime2 <- format(strptime(ctime2, "%Y-%m-%dT%H:%M:%S",
+  tz="GMT")+ endd + 60*60*24 -1,
   usetz=F, format="%Y-%m-%dT%H:%M:%SZ")
 addtag    <- "<TimeSpan>"
 addtag[2] <- paste("<begin>", begind, "T", ctime1, "Z</begin>", sep="")
@@ -183,9 +184,9 @@ ilink <- paste(ilink, "&.colorBar=", colorbar, sep="")
 idest <- gsub(".kml", ".png", dest)
 download.file(ilink, idest, mode = "wb")
 kmlfile[gg] <- paste("<href>", tail(unlist(strsplit(idest, "/")), 1) , "</href>", sep="")
-kmlfile <- c(kmlfile[1:(gg-3)], 
+kmlfile <- c(kmlfile[1:(gg-3)],
                              paste("<name>", variable, " at ", depth[1], " meters", "</name>", sep=""),
-             paste("<description>", colorbar, "</description>", sep=""), 
+             paste("<description>", colorbar, "</description>", sep=""),
              kmlfile[(gg-2):length(kmlfile)])
 }
 writeLines(kmlfile, dest)
@@ -193,4 +194,3 @@ writeLines(kmlfile, dest)
     }
 return(list(folder=folder, nday=every.day, datesteps=datesteps, nodataflag=0))
 }
-

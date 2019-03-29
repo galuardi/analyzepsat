@@ -1,10 +1,10 @@
 #' CI2shp
 #'
-#' @param track 
-#' @param fname 
-#' @param level 
-#' @param npoints 
-#' @param proj4string 
+#' @param track
+#' @param fname
+#' @param level
+#' @param npoints
+#' @param proj4string
 #'
 #' @return
 #' @export
@@ -35,9 +35,9 @@ CI2shp <- function(track, fname = 'testshp', level = .95, npoints = 100, proj4st
 
 #' track2shp
 #'
-#' @param track 
-#' @param fname 
-#' @param proj4string 
+#' @param track
+#' @param fname
+#' @param proj4string
 #'
 #' @return
 #' @export
@@ -54,4 +54,3 @@ writePointsShape(out, fname, factor2char = TRUE, max_nchar=254)
  # writeLinesShape(out.L, paste(fname, "_Line", sep = ""), factor2char = TRUE, max_nchar = 254)
 # }
 }
-

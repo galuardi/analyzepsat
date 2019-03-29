@@ -1,8 +1,8 @@
 #' track2shp
 #'
-#' @param track 
-#' @param fname 
-#' @param proj4string 
+#' @param track
+#' @param fname
+#' @param proj4string
 #'
 #' @return
 #' @export
